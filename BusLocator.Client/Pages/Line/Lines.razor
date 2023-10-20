@@ -1,0 +1,32 @@
+﻿@inject HttpClient httpClient
+@page "/lines"
+
+<MudText Typo="Typo.h5">Linije</MudText>
+<MudDivider Class="my-3"/>
+<MudTable Items="@_lines" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+    <HeaderContent>
+        <MudTh>Broj</MudTh>
+        <MudTh>Naziv</MudTh>
+        <MudTh>Cijena</MudTh>
+        <MudTh>Trajanje</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Broj">@context.Number</MudTd>
+        <MudTd DataLabel="Naziv">@context.Name</MudTd>
+        <MudTd DataLabel="Cijena">@context.Price</MudTd>
+        <MudTd DataLabel="Trajanje">@context.Duration</MudTd>
+    </RowTemplate>
+</MudTable>
+
+@code {
+    private bool _loading;
+    private IEnumerable<LineDto> _lines = new List<LineDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _loading = true;
+        _lines = await httpClient.GetFromJsonAsync<List<LineDto>>("http://localhost:5001/api/lines/getall");
+        _loading = false;
+
+    }
+}

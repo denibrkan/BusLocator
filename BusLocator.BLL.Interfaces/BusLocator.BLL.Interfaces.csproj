@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusLocator.Common\BusLocator.Common.csproj" />
+    <ProjectReference Include="..\BusLocator.Core\BusLocator.Core.csproj" />
+    <ProjectReference Include="..\BusLocator.DAL.Interfaces\BusLocator.DAL.Interfaces.csproj" />
+  </ItemGroup>
+
+</Project>

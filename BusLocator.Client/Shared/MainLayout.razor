@@ -1,0 +1,55 @@
+﻿@inherits LayoutComponentBase
+
+<MudThemeProvider Theme="MyCustomTheme"/>
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen">
+        <MudText Typo="Typo.h5" Align="Align.Center" Class="mt-4 mb-6">BusLocator</MudText>
+        <MudNavMenu>
+            <MudNavLink Href="/lines" Match="NavLinkMatch.All" Class="" ActiveClass="mud-theme-secondary">Linije</MudNavLink>
+            <MudNavLink Href="/stops" Match="NavLinkMatch.All" Class="" ActiveClass="mud-theme-secondary">Stajališta</MudNavLink>
+        </MudNavMenu>
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Large" Class="mt-12">
+            @Body
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+@code {
+    bool _drawerOpen = true;
+
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+
+    MudTheme MyCustomTheme = new MudTheme()
+    {
+        Palette = new PaletteLight()
+        {
+            Primary = Colors.Shades.White,
+            Secondary = Colors.Grey.Darken1,
+            AppbarBackground = Colors.Yellow.Accent2,
+            AppbarText = Colors.Grey.Darken4,
+            TextPrimary = Colors.Grey.Darken4,
+            DrawerBackground = Colors.Grey.Darken4,
+            DrawerText = Colors.Shades.White,
+        },
+        PaletteDark = new PaletteDark()
+        {
+            Primary = Colors.Blue.Lighten1
+        },
+
+        LayoutProperties = new LayoutProperties()
+        {
+            DrawerWidthLeft = "260px",
+            DrawerWidthRight = "300px"
+        }
+    };
+}
