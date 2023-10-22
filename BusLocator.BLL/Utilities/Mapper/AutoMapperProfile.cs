@@ -9,6 +9,7 @@ namespace BusLocator.BLL.Utilities.Mapper
         public AutoMapperProfile()
         {
             CreateMap<Line, LineDto>();
+            CreateMap<LineInsertDto, Line>();
         }
     }
 }

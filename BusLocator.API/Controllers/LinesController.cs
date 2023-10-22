@@ -22,5 +22,13 @@ namespace BusLocator.API.Controllers
 
             return Ok(lines);
         }
+
+        [HttpPost]
+        public async Task<ActionResult<LineDto>> Post(LineInsertDto lineInsert)
+        {
+            var line = await _lineService.InsertAsync(lineInsert);
+
+            return Ok(line);
+        }
     }
 }

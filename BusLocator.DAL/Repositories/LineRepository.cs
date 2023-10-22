@@ -18,5 +18,14 @@ namespace BusLocator.DAL.Repositories
         {
             return _db.Lines.ToListAsync();
         }
+
+        public async Task<Line> InsertAsync(Line line)
+        {
+            _db.Lines.Add(line);
+
+            await _db.SaveChangesAsync();
+
+            return line;
+        }
     }
 }

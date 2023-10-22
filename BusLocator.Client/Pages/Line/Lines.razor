@@ -1,7 +1,10 @@
 ﻿@inject HttpClient httpClient
 @page "/lines"
 
-<MudText Typo="Typo.h5">Linije</MudText>
+<div class="d-flex justify-space-between">
+    <MudText Typo="Typo.h5">Linije</MudText>
+    <MudButton Href="/lines/add" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add">Dodaj</MudButton>
+</div>
 <MudDivider Class="my-3"/>
 <MudTable Items="@_lines" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
     <HeaderContent>

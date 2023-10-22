@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using BusLocator.BLL.Interfaces.Services;
 using BusLocator.Common.DataTransferObjects;
+using BusLocator.Core.Entities;
 using BusLocator.DAL.Interfaces.Repositories;
 
 namespace BusLocator.BLL.Services
@@ -21,6 +22,15 @@ namespace BusLocator.BLL.Services
             var lines = await _lineRepository.GetAllLinesAsync();
 
             return _mapper.Map<List<LineDto>>(lines);
+        }
+
+        public async Task<LineDto> InsertAsync(LineInsertDto lineInsert)
+        {
+            var line = _mapper.Map<Line>(lineInsert);
+
+            await _lineRepository.InsertAsync(line);
+
+            return _mapper.Map<LineDto>(line);
         }
     }
 }

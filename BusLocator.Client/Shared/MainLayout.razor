@@ -11,12 +11,12 @@
     <MudDrawer @bind-Open="@_drawerOpen">
         <MudText Typo="Typo.h5" Align="Align.Center" Class="mt-4 mb-6">BusLocator</MudText>
         <MudNavMenu>
-            <MudNavLink Href="/lines" Match="NavLinkMatch.All" Class="" ActiveClass="mud-theme-secondary">Linije</MudNavLink>
-            <MudNavLink Href="/stops" Match="NavLinkMatch.All" Class="" ActiveClass="mud-theme-secondary">Stajališta</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.DirectionsBus" Href="/lines" Match="NavLinkMatch.All">Linije</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.BusAlert" Href="/stops" Match="NavLinkMatch.All">Stajališta</MudNavLink>
         </MudNavMenu>
     </MudDrawer>
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large" Class="mt-12">
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-12 px-12">
             @Body
         </MudContainer>
     </MudMainContent>
@@ -33,13 +33,14 @@
     {
         Palette = new PaletteLight()
         {
-            Primary = Colors.Shades.White,
+            Primary = Colors.Yellow.Accent2,
             Secondary = Colors.Grey.Darken1,
             AppbarBackground = Colors.Yellow.Accent2,
-            AppbarText = Colors.Grey.Darken4,
+            AppbarText = Colors.Shades.Black,
             TextPrimary = Colors.Grey.Darken4,
             DrawerBackground = Colors.Grey.Darken4,
             DrawerText = Colors.Shades.White,
+            
         },
         PaletteDark = new PaletteDark()
         {
