@@ -1,16 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using BusLocator.Common.Resources.Strings;
+using System.ComponentModel.DataAnnotations;
 
 namespace BusLocator.Common.DataTransferObjects
 {
     public class LineInsertDto
     {
-        [Required(ErrorMessage = "Broj je obavezno polje")]
+        [Required(ErrorMessageResourceName = nameof(Strings.NumberRequired), ErrorMessageResourceType = typeof(Strings))]
         public string? Number { get; set; }
-        [Required(ErrorMessage = "Naziv je obavezno polje")]
+        [Required(ErrorMessageResourceName = nameof(Strings.NameRequired), ErrorMessageResourceType = typeof(Strings))]
         public string? Name { get; set; }
-        [Required(ErrorMessage = "Trajanje je obavezno polje")]
+        [Required(ErrorMessageResourceName = nameof(Strings.DurationRequired), ErrorMessageResourceType = typeof(Strings))]
         public int? Duration { get; set; }
-        [Required(ErrorMessage = "Cijena je obavezno polje")]
+        [Required(ErrorMessageResourceName = nameof(Strings.PriceRequired), ErrorMessageResourceType = typeof(Strings))]
         public decimal? Price { get; set; }
     }
 }

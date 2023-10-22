@@ -9,10 +9,10 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
     </MudAppBar>
     <MudDrawer @bind-Open="@_drawerOpen">
-        <MudText Typo="Typo.h5" Align="Align.Center" Class="mt-4 mb-6">BusLocator</MudText>
+        <MudText Typo="Typo.h5" Align="Align.Center" Class="mt-4 mb-6">@Strings.AppName</MudText>
         <MudNavMenu>
-            <MudNavLink Icon="@Icons.Material.Filled.DirectionsBus" Href="/lines" Match="NavLinkMatch.All">Linije</MudNavLink>
-            <MudNavLink Icon="@Icons.Material.Filled.BusAlert" Href="/stops" Match="NavLinkMatch.All">Stajališta</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.DirectionsBus" Href="/lines" Match="NavLinkMatch.All">@Strings.Lines</MudNavLink>
+            <MudNavLink Icon="@Icons.Material.Filled.BusAlert" Href="/stops" Match="NavLinkMatch.All">@Strings.Stops</MudNavLink>
         </MudNavMenu>
     </MudDrawer>
     <MudMainContent>

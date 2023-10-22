@@ -2,22 +2,22 @@
 @page "/lines"
 
 <div class="d-flex justify-space-between">
-    <MudText Typo="Typo.h5">Linije</MudText>
-    <MudButton Href="/lines/add" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add">Dodaj</MudButton>
+    <MudText Typo="Typo.h5">@Strings.Lines</MudText>
+    <MudButton Href="/lines/add" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add">@Strings.Add</MudButton>
 </div>
 <MudDivider Class="my-3"/>
 <MudTable Items="@_lines" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
     <HeaderContent>
-        <MudTh>Broj</MudTh>
-        <MudTh>Naziv</MudTh>
-        <MudTh>Cijena</MudTh>
-        <MudTh>Trajanje</MudTh>
+        <MudTh>@Strings.Number</MudTh>
+        <MudTh>@Strings.Name</MudTh>
+        <MudTh>@Strings.Price</MudTh>
+        <MudTh>@Strings.Duration</MudTh>
     </HeaderContent>
     <RowTemplate>
-        <MudTd DataLabel="Broj">@context.Number</MudTd>
-        <MudTd DataLabel="Naziv">@context.Name</MudTd>
-        <MudTd DataLabel="Cijena">@context.Price</MudTd>
-        <MudTd DataLabel="Trajanje">@context.Duration</MudTd>
+        <MudTd>@context.Number</MudTd>
+        <MudTd>@context.Name</MudTd>
+        <MudTd>@context.Price</MudTd>
+        <MudTd>@context.Duration</MudTd>
     </RowTemplate>
 </MudTable>
 

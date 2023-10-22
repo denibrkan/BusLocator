@@ -4,21 +4,21 @@
 
 @page "/lines/add"
 
-<MudText Typo="Typo.h5">Nova Linija</MudText>
+<MudText Typo="Typo.h5">@Strings.NewLine</MudText>
 <MudDivider Class="my-3"/>
 <EditForm Model="_line" OnValidSubmit="HandleValidSubmit" >
     <DataAnnotationsValidator />
     <MudGrid>
         <MudItem lg="4">
             <MudCard Class="pa-3 pb-6 mb-3">
-                <MudTextField Label="Broj" @bind-Value="_line.Number" For="() => _line.Number" />
-                <MudTextField Label="Naziv" @bind-Value="_line.Name" For="() => _line.Name" />
-                <MudNumericField Step="5" Label="Trajanje" @bind-Value="_line.Duration" For="() => _line.Duration" />
-                <MudNumericField Step="(decimal)0.10" Label="Cijena" @bind-Value="_line.Price" For="() => _line.Price" />
+                <MudTextField Label="@Strings.Number" @bind-Value="_line.Number" For="() => _line.Number" />
+                <MudTextField Label="@Strings.Name" @bind-Value="_line.Name" For="() => _line.Name" />
+                <MudNumericField Step="5" Label="@Strings.Duration" @bind-Value="_line.Duration" For="() => _line.Duration" />
+                <MudNumericField Step="(decimal)0.10" Label="@Strings.Price" @bind-Value="_line.Price" For="() => _line.Price" />
             </MudCard>
 
             <div class="d-flex justify-end">
-                <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit">Spasi</MudButton>
+                <MudButton Variant="Variant.Filled" ButtonType="ButtonType.Submit">@Strings.Save</MudButton>
             </div>
 
         </MudItem>
@@ -35,7 +35,7 @@
 
         if (response.IsSuccessStatusCode)
         {
-            snackBar.Add("Linija uspjesno dodana", Severity.Success);
+            snackBar.Add(Strings.LineAddSuccessMessage, Severity.Success);
 
             navigator.NavigateTo("/lines");
         }
