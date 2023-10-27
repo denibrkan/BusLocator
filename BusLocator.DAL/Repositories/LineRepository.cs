@@ -1,4 +1,6 @@
 ﻿using BusLocator.Common.Resources.Strings;
+using BusLocator.Common.SearchObjects;
+using BusLocator.Common.Utilities;
 using BusLocator.Core;
 using BusLocator.Core.Entities;
 using BusLocator.DAL.Interfaces.Repositories;
@@ -15,9 +17,35 @@ namespace BusLocator.DAL.Repositories
             _db = db;
         }
 
-        public Task<List<Line>> GetAllLinesAsync()
+        public Task<List<Line>> GetAllAsync()
         {
-            return _db.Lines.OrderBy(l => l.Number).ToListAsync();
+            return _db.Lines.OrderBy(l => l.Id).ToListAsync();
+        }
+
+        public async Task<PagedList<Line>> GetAsync(LineSearchObject searchObject)
+        {
+            var lines = _db.Lines.AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchObject.SearchText))
+                lines = lines.Where(l => l.Name.ToLower().Contains(searchObject.SearchText.ToLower()));
+
+            if (!string.IsNullOrWhiteSpace(searchObject.OrderBy))
+            {
+                if (searchObject.OrderBy == nameof(Line.Number))
+                    lines = searchObject.OrderAsc ? lines.OrderBy(l => l.Number) : lines.OrderByDescending(l => l.Number);
+
+                if (searchObject.OrderBy == nameof(Line.Name))
+                    lines = searchObject.OrderAsc ? lines.OrderBy(l => l.Name) : lines.OrderByDescending(l => l.Name);
+
+                if (searchObject.OrderBy == nameof(Line.Price))
+                    lines = searchObject.OrderAsc ? lines.OrderBy(l => l.Price) : lines.OrderByDescending(l => l.Price);
+            }
+            else
+            {
+                lines = lines.OrderBy(l => l.Id);
+            }
+
+            return await PagedList<Line>.CreateAsync(lines, searchObject.Page, searchObject.PageSize);
         }
 
         public async Task<Line> InsertAsync(Line line)

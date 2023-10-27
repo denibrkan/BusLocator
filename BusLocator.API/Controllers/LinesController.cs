@@ -1,5 +1,7 @@
 ﻿using BusLocator.BLL.Interfaces.Services;
 using BusLocator.Common.DataTransferObjects;
+using BusLocator.Common.SearchObjects;
+using BusLocator.Common.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BusLocator.API.Controllers
@@ -18,7 +20,15 @@ namespace BusLocator.API.Controllers
         [HttpGet("GetAll")]
         public async Task<ActionResult<IEnumerable<LineDto>>> GetAll()
         {
-            var lines = await _lineService.GetAllLinesAsync();
+            var lines = await _lineService.GetAllAsync();
+
+            return Ok(lines);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<PagedList<LineDto>>> Get([FromQuery] LineSearchObject searchObject)
+        {
+            var lines = await _lineService.GetAsync(searchObject);
 
             return Ok(lines);
         }

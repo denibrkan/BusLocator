@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using BusLocator.BLL.Interfaces.Services;
 using BusLocator.Common.DataTransferObjects;
+using BusLocator.Common.SearchObjects;
+using BusLocator.Common.Utilities;
 using BusLocator.Core.Entities;
 using BusLocator.DAL.Interfaces.Repositories;
 
@@ -17,11 +19,18 @@ namespace BusLocator.BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<List<LineDto>> GetAllLinesAsync()
+        public async Task<List<LineDto>> GetAllAsync()
         {
-            var lines = await _lineRepository.GetAllLinesAsync();
+            var lines = await _lineRepository.GetAllAsync();
 
             return _mapper.Map<List<LineDto>>(lines);
+        }
+
+        public async Task<PagedList<LineDto>> GetAsync(LineSearchObject searchObject)
+        {
+            PagedList<Line> lines = await _lineRepository.GetAsync(searchObject);
+
+            return _mapper.Map<PagedList<LineDto>>(lines);
         }
 
         public async Task<LineDto> InsertAsync(LineInsertDto lineInsert)

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BusLocator.Common.DataTransferObjects;
+using BusLocator.Common.Utilities;
 using BusLocator.Core.Entities;
 
 namespace BusLocator.BLL.Utilities.Mapper
@@ -11,6 +12,8 @@ namespace BusLocator.BLL.Utilities.Mapper
             CreateMap<Line, LineDto>();
             CreateMap<LineInsertDto, Line>();
             CreateMap<LineUpdateDto, Line>();
+
+            CreateMap(typeof(PagedList<>), typeof(PagedList<>));
         }
     }
 }

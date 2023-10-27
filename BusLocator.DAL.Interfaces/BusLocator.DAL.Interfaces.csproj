@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BusLocator.Core\BusLocator.Core.csproj" />
+    <ProjectReference Include="..\BusLocator.Common\BusLocator.Common.csproj" />
   </ItemGroup>
 
 </Project>
