@@ -132,6 +132,12 @@
   <data name="LineAddSuccessMessage" xml:space="preserve">
     <value>Linija uspješno dodana</value>
   </data>
+  <data name="LineEditedInfoMessage" xml:space="preserve">
+    <value>Linija uspješno uređena</value>
+  </data>
+  <data name="LineNotFoundException" xml:space="preserve">
+    <value>Linija sa id {0} nije pronađena</value>
+  </data>
   <data name="Lines" xml:space="preserve">
     <value>Linije</value>
   </data>

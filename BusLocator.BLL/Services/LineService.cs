@@ -32,5 +32,16 @@ namespace BusLocator.BLL.Services
 
             return _mapper.Map<LineDto>(line);
         }
+
+        public async Task<LineDto> UpdateAsync(int id, LineUpdateDto lineUpdate)
+        {
+            var line = await _lineRepository.GetByIdAsync(id);
+
+            _mapper.Map(lineUpdate, line);
+
+            await _lineRepository.UpdateAsync(line);
+
+            return _mapper.Map<LineDto>(line);
+        }
     }
 }

@@ -30,5 +30,13 @@ namespace BusLocator.API.Controllers
 
             return Ok(line);
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<LineDto>> Put(int id, LineUpdateDto lineUpdate)
+        {
+            var line = await _lineService.UpdateAsync(id, lineUpdate);
+
+            return Ok(line);
+        }
     }
 }

@@ -1,12 +1,17 @@
 ﻿@inject HttpClient httpClient
+@inject IDialogService DialogService
+@page "/"
 @page "/lines"
+
+<PageTitle>@Strings.Lines</PageTitle>
 
 <div class="d-flex justify-space-between">
     <MudText Typo="Typo.h5">@Strings.Lines</MudText>
     <MudButton Href="/lines/add" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add">@Strings.Add</MudButton>
 </div>
-<MudDivider Class="my-3"/>
-<MudTable Items="@_lines" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info">
+<MudDivider Class="my-3" />
+<MudTable Items="@_lines" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
+          OnRowClick="(TableRowClickEventArgs<LineDto> e) => HandleRowClicked(e)" RowClass="cursor-pointer">
     <HeaderContent>
         <MudTh>@Strings.Number</MudTh>
         <MudTh>@Strings.Name</MudTh>
@@ -27,9 +32,32 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadLines();
+    }
+
+    private async Task LoadLines()
+    {
         _loading = true;
         _lines = await httpClient.GetFromJsonAsync<List<LineDto>>("http://localhost:5001/api/lines/getall");
         _loading = false;
 
+        StateHasChanged();
+    }
+
+    private async void HandleRowClicked(TableRowClickEventArgs<LineDto> row)
+    {
+        await OpenEditModal(row.Item);
+    }
+
+    private async Task OpenEditModal(LineDto line)
+    {
+        var dialogParameters = new DialogParameters<LineEditModal>();
+        dialogParameters.Add((x) => x.Line, line);
+
+        var dialogRef = await DialogService.ShowAsync<LineEditModal>($"Uredi liniju #{line.Number}", dialogParameters, new DialogOptions { FullWidth = true });
+        var result = await dialogRef.Result;
+
+        if (!result.Canceled)
+            await LoadLines();            
     }
 }

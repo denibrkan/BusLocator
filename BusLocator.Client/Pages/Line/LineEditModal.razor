@@ -1,0 +1,58 @@
+﻿@inject ISnackbar SnackBar
+@inject NavigationManager Navigator
+@inject HttpClient HttpClient
+
+<MudDialog ClassActions="px-6 py-4">
+    <DialogContent>
+        <EditForm id="editLoanForm" Model="_line" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            <MudTextField Label="@Strings.Number" @bind-Value="_line.Number" For="() => _line.Number" />
+            <MudTextField Label="@Strings.Name" @bind-Value="_line.Name" For="() => _line.Name" />
+            <MudNumericField Step="5" Label="@Strings.Duration" @bind-Value="_line.Duration" For="() => _line.Duration" />
+            <MudNumericField Step="(decimal)0.10" Label="@Strings.Price" @bind-Value="_line.Price" For="() => _line.Price" />
+        </EditForm>
+    </DialogContent>
+    <DialogActions>
+            <MudButton OnClick="Cancel">Cancel</MudButton>
+            <button class="mud-button mud-button-filled" form="editLoanForm" type="submit">@Strings.Save</button>
+    </DialogActions>
+</MudDialog>
+
+@code {
+    [CascadingParameter]
+    public MudDialogInstance MudDialog { get; set; } = null!;
+
+    [Parameter]
+    public LineDto Line { get; set; } = null!;
+
+    private LineUpdateDto _line = new LineUpdateDto();
+
+    private async Task HandleValidSubmit()
+    {
+        var response = await HttpClient.PutAsJsonAsync<LineUpdateDto>($"http://localhost:5001/api/lines/{Line.Id}", _line);
+
+        if (response.IsSuccessStatusCode)
+        {
+            SnackBar.Add(Strings.LineEditedInfoMessage, Severity.Info, (SnackbarOptions x) => x.HideIcon = true);
+            
+            Submit();
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        InitEditModel();
+    }
+
+    private void InitEditModel()
+    {
+        _line.Name = Line.Name;
+        _line.Duration = Line.Duration;
+        _line.Number = Line.Number;
+        _line.Price = Line.Price;
+    }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+}
+

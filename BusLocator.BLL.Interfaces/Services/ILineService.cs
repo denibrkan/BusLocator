@@ -6,5 +6,6 @@ namespace BusLocator.BLL.Interfaces.Services
     {
         Task<List<LineDto>> GetAllLinesAsync();
         Task<LineDto> InsertAsync(LineInsertDto line);
+        Task<LineDto> UpdateAsync(int id, LineUpdateDto line);
     }
 }

@@ -106,6 +106,24 @@ namespace BusLocator.Common.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Linija uspješno uređena.
+        /// </summary>
+        public static string LineEditedInfoMessage {
+            get {
+                return ResourceManager.GetString("LineEditedInfoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linija sa id {0} nije pronađena.
+        /// </summary>
+        public static string LineNotFoundException {
+            get {
+                return ResourceManager.GetString("LineNotFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Linije.
         /// </summary>
         public static string Lines {

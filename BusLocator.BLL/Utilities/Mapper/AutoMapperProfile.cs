@@ -10,6 +10,7 @@ namespace BusLocator.BLL.Utilities.Mapper
         {
             CreateMap<Line, LineDto>();
             CreateMap<LineInsertDto, Line>();
+            CreateMap<LineUpdateDto, Line>();
         }
     }
 }

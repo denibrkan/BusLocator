@@ -10,7 +10,12 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient();
 builder.Services.AddMudServices(config =>
 {
-    config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomRight;
+    config.SnackbarConfiguration = new SnackbarConfiguration
+    {
+        PositionClass = Defaults.Classes.Position.BottomRight,
+        SnackbarVariant = Variant.Text,
+    };
+
 });
 
 var app = builder.Build();
