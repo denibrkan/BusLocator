@@ -124,7 +124,7 @@
     <value>BusLocator</value>
   </data>
   <data name="Duration" xml:space="preserve">
-    <value>Trajanje</value>
+    <value>Trajanje (min)</value>
   </data>
   <data name="DurationRequired" xml:space="preserve">
     <value>Trajanje je obavezno polje</value>
@@ -150,17 +150,26 @@
   <data name="NewLine" xml:space="preserve">
     <value>Nova Linija</value>
   </data>
+  <data name="NoData" xml:space="preserve">
+    <value>Nema podataka</value>
+  </data>
   <data name="Number" xml:space="preserve">
     <value>Broj</value>
   </data>
   <data name="NumberRequired" xml:space="preserve">
     <value>Broj je obavezno polje</value>
   </data>
+  <data name="PagingInfoLabel" xml:space="preserve">
+    <value>{first_item}-{last_item} od {all_items}</value>
+  </data>
   <data name="Price" xml:space="preserve">
     <value>Cijena</value>
   </data>
   <data name="PriceRequired" xml:space="preserve">
     <value>Cijena je obavezno polje</value>
+  </data>
+  <data name="RowsPerPage" xml:space="preserve">
+    <value>Redova po stranici</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Spasi</value>

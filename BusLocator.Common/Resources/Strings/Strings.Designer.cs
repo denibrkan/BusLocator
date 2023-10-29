@@ -79,7 +79,7 @@ namespace BusLocator.Common.Resources.Strings {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Trajanje.
+        ///   Looks up a localized string similar to Trajanje (min).
         /// </summary>
         public static string Duration {
             get {
@@ -160,6 +160,15 @@ namespace BusLocator.Common.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nema podataka.
+        /// </summary>
+        public static string NoData {
+            get {
+                return ResourceManager.GetString("NoData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Broj.
         /// </summary>
         public static string Number {
@@ -178,6 +187,15 @@ namespace BusLocator.Common.Resources.Strings {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {first_item}-{last_item} od {all_items}.
+        /// </summary>
+        public static string PagingInfoLabel {
+            get {
+                return ResourceManager.GetString("PagingInfoLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cijena.
         /// </summary>
         public static string Price {
@@ -192,6 +210,15 @@ namespace BusLocator.Common.Resources.Strings {
         public static string PriceRequired {
             get {
                 return ResourceManager.GetString("PriceRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Redova po stranici.
+        /// </summary>
+        public static string RowsPerPage {
+            get {
+                return ResourceManager.GetString("RowsPerPage", resourceCulture);
             }
         }
         

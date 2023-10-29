@@ -10,12 +10,17 @@
     <MudButton Href="/lines/add" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Add">@Strings.Add</MudButton>
 </div>
 <MudDivider Class="my-3" />
-<MudTable Items="@_lines" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
-          OnRowClick="(TableRowClickEventArgs<LineDto> e) => HandleRowClicked(e)" RowClass="cursor-pointer">
+<MudTable @ref="_table" ServerData="@(new Func<TableState, Task<TableData<LineDto>>>(LoadLines))" Hover="true" Breakpoint="Breakpoint.Sm" Loading="@_loading" LoadingProgressColor="Color.Info"
+          OnRowClick="(TableRowClickEventArgs<LineDto> e) => HandleRowClicked(e)" RowsPerPage="10" RowClass="cursor-pointer" Dense="true">
+    <ToolBarContent>
+        <MudTextField T="string" ValueChanged="@(s => OnSearch(s))" Placeholder="Traži" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+        <MudSpacer />
+    </ToolBarContent>
     <HeaderContent>
-        <MudTh>@Strings.Number</MudTh>
-        <MudTh>@Strings.Name</MudTh>
-        <MudTh>@Strings.Price</MudTh>
+        <MudTh><MudTableSortLabel SortLabel="@nameof(LineDto.Number)" T="LineDto">@Strings.Number</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="@nameof(LineDto.Name)" T="LineDto">@Strings.Name</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="@nameof(LineDto.Price)" T="LineDto">@Strings.Price</MudTableSortLabel></MudTh>
         <MudTh>@Strings.Duration</MudTh>
     </HeaderContent>
     <RowTemplate>
@@ -24,24 +29,33 @@
         <MudTd>@context.Price</MudTd>
         <MudTd>@context.Duration</MudTd>
     </RowTemplate>
+    <NoRecordsContent>
+        <MudText>@Strings.NoData</MudText>
+    </NoRecordsContent>
+    <PagerContent>
+        <MudTablePager Class="grey-text text-darken-2" Style="font-size: 0.8rem" InfoFormat="@Strings.PagingInfoLabel" PageSizeOptions="new int[]{5, 10, 25, 50}" RowsPerPageString="@Strings.RowsPerPage" />
+    </PagerContent>
 </MudTable>
 
 @code {
     private bool _loading;
+    private string _searchText = string.Empty;
+    private MudTable<LineDto> _table = null!;
     private IEnumerable<LineDto> _lines = new List<LineDto>();
 
-    protected override async Task OnInitializedAsync()
+    private async Task<TableData<LineDto>> LoadLines(TableState tableState)
     {
-        await LoadLines();
-    }
+        if (tableState.SortLabel != string.Empty && tableState.SortDirection == SortDirection.None)
+            tableState.SortLabel = string.Empty;
 
-    private async Task LoadLines()
-    {
+        var searchObject = new LineSearchObject { Page = ++tableState.Page, PageSize = tableState.PageSize, OrderBy = tableState.SortLabel, OrderAsc = tableState.SortDirection == SortDirection.Ascending ? true : false, SearchText = _searchText };
+        string queryParams = QueryParams.GenerateQueryParams(searchObject);
+
         _loading = true;
-        _lines = await httpClient.GetFromJsonAsync<List<LineDto>>("http://localhost:5001/api/lines/getall");
+        var lineData = await httpClient.GetFromJsonAsync<PagedList<LineDto>>($"http://localhost:5001/api/lines?{queryParams}");
         _loading = false;
 
-        StateHasChanged();
+        return new TableData<LineDto> { Items = lineData.Items, TotalItems = lineData.TotalCount };
     }
 
     private async void HandleRowClicked(TableRowClickEventArgs<LineDto> row)
@@ -58,6 +72,12 @@
         var result = await dialogRef.Result;
 
         if (!result.Canceled)
-            await LoadLines();            
+            await _table.ReloadServerData();
+    }
+
+    private void OnSearch(string text)
+    {
+        _searchText = text;
+        _table.ReloadServerData();
     }
 }
